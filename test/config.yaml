@@ -1,0 +1,32 @@
+application:
+  daemon: false
+  pidfile: jenkins-keep.pid
+
+keepstart:
+  nic: 以太网
+  vip: 172.18.1.44
+  start: start.bat
+  stop: stop.bat
+
+logging:
+  version: 1
+  disable_existing_loggers: false
+  formatters:
+    simple:
+      format: "%(asctime)-15s\t%(levelname)s\t%(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+  loggers:
+    keepstart:
+      level: DEBUG
+      handlers:
+        - console
+      propagate: no
+  root:
+    level: DEBUG
+    handlers:
+      - console
+
