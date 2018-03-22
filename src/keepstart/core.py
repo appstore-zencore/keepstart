@@ -1,10 +1,10 @@
 import os
 import logging
 from logging.config import dictConfig
-import psutil
 import signal
 import time
 import threading
+import psutil
 from dictop import select
 
 
