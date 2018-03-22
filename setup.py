@@ -10,6 +10,7 @@ with open(os.path.join(here, 'README.rst'), "r", encoding="utf-8") as fobj:
 requires = [
     "dictop",
     "psutil",
+    "appserver",
 ]
 
 setup(
