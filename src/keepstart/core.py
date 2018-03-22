@@ -115,10 +115,13 @@ def server(config):
                 logger.error("Test main program running status failed, test command: {}.".format(is_running_test_command))
                 continue
             if is_master and not is_running_flag:
+                is_running_flag = True
+                logger.info("System got MASTER role, but main program is NOT running, start it!")
                 call(start)
                 force_test_flag = True
                 continue
             if is_running_flag and not is_master:
+                is_running_flag = False
                 logger.info("System got BACKUP role, and main program is RUNNING, stop it!")
                 call(stop)
                 force_test_flag = True
