@@ -97,7 +97,6 @@ def server(config):
     try:
         signal.signal(signal.SIGINT, on_exit)
         signal.signal(signal.SIGTERM, on_exit)
-        signal.signal(signal.SIGBREAK, on_exit)
     except:
         logger.exception("Install signal failed, but program will keep on running...")
     # do main loop
