@@ -10,3 +10,4 @@ script:
   - cd ..
   - pip install .
   - which keepserver
+  - keepserver --help
