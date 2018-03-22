@@ -7,3 +7,6 @@ install:
 script:
   - cd src
   - nosetests
+  - cd ..
+  - pip install .
+  - which keepserver
