@@ -42,7 +42,7 @@ def call(command):
     return exit_code == 0
 
 
-def test_is_running(command, current_status, counter, force_test_cycle, force):
+def is_running(command, current_status, counter, force_test_cycle, force):
     # command is None, trust current_status
     if command is None:
         if current_status is None:
@@ -86,7 +86,7 @@ def server(config):
     force_test_cycle = select(config, "keepstart.force-test-cycle", 60)
     is_running_test_command = select(config, "keepstart.is-running")
     force_test_flag = False
-    is_running = None
+    is_running_flag = None
     counter = 0
     # catch signal and stop server
     def on_exit(sig, frame):
@@ -94,9 +94,12 @@ def server(config):
         msg = "Server got signal {}, set stop_flag=True and exiting...".format(sig)
         print(msg, file=os.sys.stderr)
         logger.info(msg)
-    signal.signal(signal.SIGINT, on_exit)
-    signal.signal(signal.SIGTERM, on_exit)
-    signal.signal(signal.SIGBREAK, on_exit)
+    try:
+        signal.signal(signal.SIGINT, on_exit)
+        signal.signal(signal.SIGTERM, on_exit)
+        signal.signal(signal.SIGBREAK, on_exit)
+    except:
+        logger.exception("Install signal failed, but program will keep on running...")
     # do main loop
     while not stop_flag.is_set():
         try:
@@ -108,15 +111,15 @@ def server(config):
             if is_master is None:
                 logger.error("Find vip failed vip={} nic={}.".format(vip, nic))
                 continue
-            is_running = test_is_running(is_running_test_command, is_running, counter, force_test_cycle, force_test_flag)
-            if is_running is None:
+            is_running_flag = is_running(is_running_test_command, is_running_flag, counter, force_test_cycle, force_test_flag)
+            if is_running_flag is None:
                 logger.error("Test main program running status failed, test command: {}.".format(is_running_test_command))
                 continue
-            if is_master and not is_running:
+            if is_master and not is_running_flag:
                 call(start)
                 force_test_flag = True
                 continue
-            if is_running and not is_master:
+            if is_running_flag and not is_master:
                 logger.info("System got BACKUP role, and main program is RUNNING, stop it!")
                 call(stop)
                 force_test_flag = True
