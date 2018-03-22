@@ -6,11 +6,15 @@ Monitor keepalived status, run start.sh if server get MASTER role, and run stop.
 Install
 -------
 
+::
+
     pip install keepstart
 
 
 Example Config
 --------------
+
+::
 
     application:
         daemon: false
@@ -45,3 +49,30 @@ Example Config
             handlers:
                 - console
 
+Server command
+--------------
+
+::
+
+    keepserver -c config.yaml start
+    keepserver -c config.yaml stop
+    keepserver -c config.yaml reload
+
+Command help
+------------
+
+::
+
+    zencoreDeMacPro:keepstart zencore$ keepserver --help
+    Usage: keepserver [OPTIONS] COMMAND [ARGS]...
+
+    Options:
+    -c, --config FILENAME  Config file path, use yaml format. Default to
+                            config.yaml.
+    --help                 Show this message and exit.
+
+    Commands:
+    reload  Reload application server.
+    start   Start application server.
+    stop    Stop application server.
+    zencoreDeMacPro:keepstart zencore$
