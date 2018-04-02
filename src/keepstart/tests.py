@@ -12,9 +12,9 @@ class TestKeepstart(unittest.TestCase):
 
     def setUp(self):
         self.nic = "lo"
-        if "darwin" == platform.uname().system.lower():
+        if "darwin" == platform.system().lower():
             self.nic = "lo0"
-        if "windows" == platform.uname().system.lower():
+        if "windows" == platform.system().lower():
             self.nic = "Loopback Pseudo-Interface 1"
 
     def test01(self):
@@ -27,7 +27,7 @@ class TestKeepstart(unittest.TestCase):
         assert call("echo hello")
         assert not call("never-exist")
 
-        if platform.uname().system.lower() in ["linux", "darwin"]:
+        if platform.system().lower() in ["linux", "darwin"]:
             assert call("true")
             assert not call("false")
 
