@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from appserver import server
-from appserver import set_config_loader
-from appserver import default_config_loader
+from appstart import server
+from appstart import set_config_loader
+from appstart import default_config_loader
 from dictop import update
 
 
