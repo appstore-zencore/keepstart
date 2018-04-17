@@ -17,37 +17,49 @@ Example Config
 ::
 
     application:
-        daemon: false
-        pidfile: jenkins-keep.pid
+        daemon: true
+        pidfile: ssh-proxy-server.pid
 
     keepstart:
-        nic: eth0
-        vip: 172.18.1.44
-        start: /opt/app/start.sh
-        stop: /opt/app/stop.sh
-        is-running: /opt/app/status.sh
+        nic: lo
+        vip: 127.0.0.1
+        start: /opt/ssh-proxy-server/start.sh
+        stop: /opt/ssh-proxy-server/stop.sh
+        is-running: /opt/ssh-proxy-server/is-running.sh
 
     logging:
         version: 1
         disable_existing_loggers: false
         formatters:
             simple:
-            format: "%(asctime)-15s\t%(levelname)s\t%(message)s"
+                format: "%(asctime)-15s\t%(levelname)s\t%(message)s"
         handlers:
             console:
                 class: logging.StreamHandler
                 level: DEBUG
                 formatter: simple
+            file:
+                class: logging.handlers.TimedRotatingFileHandler
+                level: DEBUG
+                formatter: simple
+                filename: /opt/ssh-proxy-server/server.log
+                backupCount: 30
+                when: D
+                interval: 1
+                encoding: utf-8
         loggers:
             keepstart:
-                level: DEBUG
+                level: INFO
                 handlers:
+                    - file
                     - console
                 propagate: no
         root:
-            level: DEBUG
+            level: INFO
             handlers:
+                - file
                 - console
+
 
 Server command
 --------------
