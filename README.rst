@@ -70,6 +70,8 @@ Config to use logging.config
 
 1. config.yaml
 
+::
+
     application:
         daemon: true
         workspace: /opt/ssh-proxy-server
@@ -90,6 +92,8 @@ Config to use logging.config
 set logging to the config file in config.yaml, and create logging.conf file.
 
 1. logging.conf
+
+::
 
     [loggers]
     keys=root,keepserver,appserver
