@@ -70,68 +70,68 @@ Config to use logging.config
 
 1. config.yaml
 
-        application:
-            daemon: true
-            workspace: /opt/ssh-proxy-server
-            pidfile: ssh-proxy-server.pid
+    application:
+        daemon: true
+        workspace: /opt/ssh-proxy-server
+        pidfile: ssh-proxy-server.pid
 
-        keepstart:
-            nic: lo
-            vip: 127.0.0.1
-            start: /opt/ssh-proxy-server/start.sh
-            stop: /opt/ssh-proxy-server/stop.sh
-            is-running: /opt/ssh-proxy-server/is-running.sh
-            sleep: 2
-            running-report-cycle: 3600
-            force-test-cycle: 60
+    keepstart:
+        nic: lo
+        vip: 127.0.0.1
+        start: /opt/ssh-proxy-server/start.sh
+        stop: /opt/ssh-proxy-server/stop.sh
+        is-running: /opt/ssh-proxy-server/is-running.sh
+        sleep: 2
+        running-report-cycle: 3600
+        force-test-cycle: 60
 
-        logging: logging.conf
+    logging: logging.conf
 
-    set logging to the config file in config.yaml, and create logging.conf file.
+set logging to the config file in config.yaml, and create logging.conf file.
 
 1. logging.conf
 
-        [loggers]
-        keys=root,keepserver,appserver
+    [loggers]
+    keys=root,keepserver,appserver
 
-        [handlers]
-        keys=consoleHandler,fileHandler
+    [handlers]
+    keys=consoleHandler,fileHandler
 
-        [formatters]
-        keys=simpleFormatter
+    [formatters]
+    keys=simpleFormatter
 
-        [logger_root]
-        level=DEBUG
-        handlers=consoleHandler,fileHandler
+    [logger_root]
+    level=DEBUG
+    handlers=consoleHandler,fileHandler
 
-        [logger_keepserver]
-        level=DEBUG
-        handlers=consoleHandler,fileHandler
-        qualname=keepserver
-        propagate=0
+    [logger_keepserver]
+    level=DEBUG
+    handlers=consoleHandler,fileHandler
+    qualname=keepserver
+    propagate=0
 
-        [logger_appserver]
-        level=DEBUG
-        handlers=consoleHandler,fileHandler
-        qualname=appserver
-        propagate=0
+    [logger_appserver]
+    level=DEBUG
+    handlers=consoleHandler,fileHandler
+    qualname=appserver
+    propagate=0
 
-        [handler_consoleHandler]
-        class=StreamHandler
-        level=DEBUG
-        formatter=simpleFormatter
-        args=(sys.stdout,)
+    [handler_consoleHandler]
+    class=StreamHandler
+    level=DEBUG
+    formatter=simpleFormatter
+    args=(sys.stdout,)
 
-        [handler_fileHandler]
-        class=logging.handlers.TimedRotatingFileHandler
-        level=DEBUG
-        formatter=simpleFormatter
-        args=('logFile.log', 'D', 1, 30, 'utf-8')
+    [handler_fileHandler]
+    class=logging.handlers.TimedRotatingFileHandler
+    level=DEBUG
+    formatter=simpleFormatter
+    args=('logFile.log', 'D', 1, 30, 'utf-8')
 
-        [formatter_simpleFormatter]
-        format=%(asctime)s %(levelname)5s %(message)s
+    [formatter_simpleFormatter]
+    format=%(asctime)s %(levelname)5s %(message)s
 
-    You must add logger_xxx which xxx is the module to be actived for logging.
+You must add logger_xxx which xxx is the module to be actived for logging.
 
 Config item description
 -----------------------
