@@ -91,7 +91,7 @@ Config to use logging.config
 
 set logging to the config file in config.yaml, and create logging.conf file.
 
-1. logging.conf
+2. logging.conf
 
 ::
 
