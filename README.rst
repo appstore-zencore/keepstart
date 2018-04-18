@@ -64,8 +64,8 @@ Example Config
                 - file
                 - console
 
-Config to use logging.config
-----------------------------
+Config to use separated logging.conf
+------------------------------------
 
 
 1. config.yaml
