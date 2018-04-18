@@ -8,4 +8,4 @@ keepstart:
   start: start.bat
   stop: stop.bat
 
-logging: config.LogFile.logging.ini
+logging: config.LogFile.logging.conf
