@@ -6,7 +6,11 @@ import signal
 import time
 import threading
 import psutil
+from appserver import server as main_server
+from appserver import set_config_loader
+from appserver import default_config_loader
 from dictop import select
+from dictop import update
 
 
 logger = logging.getLogger(__name__)
@@ -132,3 +136,15 @@ def server(config):
             logger.exception("Server main-loop got error.")
     # finished main loop
     logger.info("Server finished.")
+
+def config_loader(config):
+    data = default_config_loader(config)
+    update(data, "application.main", "keepstart.server")
+    return data
+
+def main():
+    set_config_loader(config_loader)
+    main_server()
+
+if __name__ == "__main__":
+    main()

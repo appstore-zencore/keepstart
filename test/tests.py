@@ -2,11 +2,11 @@ import time
 import unittest
 import threading
 import platform
-from .core import findvip
-from .core import call
-from .core import is_running
-from .core import server
-from .core import stop_flag
+from keepserver import findvip
+from keepserver import call
+from keepserver import is_running
+from keepserver import server
+from keepserver import stop_flag
 
 class TestKeepstart(unittest.TestCase):
 
