@@ -1,7 +1,7 @@
 from __future__ import print_function
 import os
 import logging
-from logging.config import dictConfig
+from logging import config as logging_config
 import signal
 import time
 import threading
@@ -74,11 +74,13 @@ def is_running(command, current_status, counter, force_test_cycle, force):
 
 def server(config):
     # setup logging
-    logging_config = select(config, "logging")
-    if logging_config:
-        dictConfig(logging_config)
-    else:
+    logging_config_data = select(config, "logging")
+    if not logging_config_data:
         logging.basicConfig()
+    elif logging_config_data and hasattr(logging_config, "dictConfig"):
+        logging_config.dictConfig(logging_config)
+    elif logging_config_data and isinstance(logging_config_data, str):
+        logging_config.fileConfig(logging_config_data)
     # clean stop_flag
     stop_flag.clear()
     # get config item value
