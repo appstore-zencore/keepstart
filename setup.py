@@ -11,12 +11,12 @@ with open(os.path.join(here, 'README.rst'), "r", encoding="utf-8") as fobj:
 requires = [
     "psutil",    
     "dictop",
-    "appserver",
+    "appstart",
 ]
 
 setup(
     name="keepstart",
-    version="0.1.2",
+    version="0.1.3",
     description="Monitor keepalived status, run start.sh if server get MASTER role, and run stop.sh if server get SLAVE role.",
     long_description=long_description,
     url="https://github.com/appstore-zencore/keepstart",

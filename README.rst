@@ -17,6 +17,7 @@ Example Config
 ::
 
     application:
+<<<<<<< HEAD
         daemon: false
         workspace: /opt/app
         pidfile: jenkins-keep.pid
@@ -29,26 +30,49 @@ Example Config
         sleep: 2
         running-report-cycle: 3600
         force-test-cycle: 60
+=======
+        daemon: true
+        pidfile: ssh-proxy-server.pid
+
+    keepstart:
+        nic: lo
+        vip: 127.0.0.1
+        start: /opt/ssh-proxy-server/start.sh
+        stop: /opt/ssh-proxy-server/stop.sh
+        is-running: /opt/ssh-proxy-server/is-running.sh
+
+>>>>>>> ae4de9f909b882d00500df8a9d7de74d98e8df85
     logging:
         version: 1
         disable_existing_loggers: false
         formatters:
             simple:
-            format: "%(asctime)-15s\t%(levelname)s\t%(message)s"
+                format: "%(asctime)-15s\t%(levelname)s\t%(message)s"
         handlers:
             console:
                 class: logging.StreamHandler
                 level: DEBUG
                 formatter: simple
+            file:
+                class: logging.handlers.TimedRotatingFileHandler
+                level: DEBUG
+                formatter: simple
+                filename: /opt/ssh-proxy-server/server.log
+                backupCount: 30
+                when: D
+                interval: 1
+                encoding: utf-8
         loggers:
             keepstart:
-                level: DEBUG
+                level: INFO
                 handlers:
+                    - file
                     - console
                 propagate: no
         root:
-            level: DEBUG
+            level: INFO
             handlers:
+                - file
                 - console
 
 Config item description
