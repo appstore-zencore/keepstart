@@ -17,21 +17,8 @@ Example Config
 ::
 
     application:
-<<<<<<< HEAD
-        daemon: false
-        workspace: /opt/app
-        pidfile: jenkins-keep.pid
-    keepstart:
-        nic: eth0
-        vip: 172.18.1.44
-        start: /opt/app/start.sh
-        stop: /opt/app/stop.sh
-        is-running: /opt/app/status.sh
-        sleep: 2
-        running-report-cycle: 3600
-        force-test-cycle: 60
-=======
         daemon: true
+        workspace: /opt/ssh-proxy-server
         pidfile: ssh-proxy-server.pid
 
     keepstart:
@@ -40,8 +27,10 @@ Example Config
         start: /opt/ssh-proxy-server/start.sh
         stop: /opt/ssh-proxy-server/stop.sh
         is-running: /opt/ssh-proxy-server/is-running.sh
+        sleep: 2
+        running-report-cycle: 3600
+        force-test-cycle: 60
 
->>>>>>> ae4de9f909b882d00500df8a9d7de74d98e8df85
     logging:
         version: 1
         disable_existing_loggers: false
@@ -74,6 +63,73 @@ Example Config
             handlers:
                 - file
                 - console
+
+Config to use logging.config
+----------------------------
+
+set logging to the config file in config.yaml, and create logging.conf file.
+
+1. config.yaml
+
+        application:
+            daemon: true
+            workspace: /opt/ssh-proxy-server
+            pidfile: ssh-proxy-server.pid
+
+        keepstart:
+            nic: lo
+            vip: 127.0.0.1
+            start: /opt/ssh-proxy-server/start.sh
+            stop: /opt/ssh-proxy-server/stop.sh
+            is-running: /opt/ssh-proxy-server/is-running.sh
+            sleep: 2
+            running-report-cycle: 3600
+            force-test-cycle: 60
+
+        logging: logging.conf
+
+1. logging.conf
+
+        [loggers]
+        keys=root,keepserver,appserver
+
+        [handlers]
+        keys=consoleHandler,fileHandler
+
+        [formatters]
+        keys=simpleFormatter
+
+        [logger_root]
+        level=DEBUG
+        handlers=consoleHandler,fileHandler
+
+        [logger_keepserver]
+        level=DEBUG
+        handlers=consoleHandler,fileHandler
+        qualname=keepserver
+        propagate=0
+
+        [logger_appserver]
+        level=DEBUG
+        handlers=consoleHandler,fileHandler
+        qualname=appserver
+        propagate=0
+
+        [handler_consoleHandler]
+        class=StreamHandler
+        level=DEBUG
+        formatter=simpleFormatter
+        args=(sys.stdout,)
+
+        [handler_fileHandler]
+        class=logging.handlers.TimedRotatingFileHandler
+        level=DEBUG
+        formatter=simpleFormatter
+        args=('logFile.log', 'D', 1, 30, 'utf-8')
+
+        [formatter_simpleFormatter]
+        format=%(asctime)s %(levelname)5s %(message)s
+
 
 Config item description
 -----------------------
