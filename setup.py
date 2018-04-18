@@ -16,7 +16,7 @@ requires = [
 
 setup(
     name="keepserver",
-    version="0.1.3",
+    version="0.2.0",
     description="Monitor keepalived status, run start.sh if server get MASTER role, and run stop.sh if server get SLAVE role.",
     long_description=long_description,
     url="https://github.com/appstore-zencore/keepserver",
