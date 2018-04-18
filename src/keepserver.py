@@ -77,8 +77,8 @@ def server(config):
     logging_config_data = select(config, "logging")
     if not logging_config_data:
         logging.basicConfig()
-    elif logging_config_data and hasattr(logging_config, "dictConfig"):
-        logging_config.dictConfig(logging_config)
+    elif logging_config_data and isinstance(logging_config_data, dict) and hasattr(logging_config, "dictConfig"):
+        logging_config.dictConfig(logging_config_data)
     elif logging_config_data and isinstance(logging_config_data, str):
         logging_config.fileConfig(logging_config_data)
     # clean stop_flag
@@ -141,7 +141,7 @@ def server(config):
 
 def config_loader(config):
     data = default_config_loader(config)
-    update(data, "application.main", "keepstart.server")
+    update(data, "application.main", "keepserver.server")
     return data
 
 def main():

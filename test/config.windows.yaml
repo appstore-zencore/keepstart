@@ -1,12 +1,12 @@
 application:
   daemon: false
-  pidfile: jenkins-keep.pid
+  pidfile: test-windows.pid
 
 keepstart:
-  nic: en0
-  vip: 10.10.1.104
-  start: /Users/huangjiangbin/code/keepstart/test/start.bat
-  stop: /Users/huangjiangbin/code/keepstart/test/stop.bat
+  nic: Loopback Pseudo-Interface 1
+  vip: 127.0.0.1
+  start: start.bat
+  stop: stop.bat
 
 logging:
   version: 1

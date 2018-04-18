@@ -1,0 +1,11 @@
+application:
+  daemon: false
+  pidfile: test-windows.pid
+
+keepstart:
+  nic: Loopback Pseudo-Interface 1
+  vip: 127.0.0.1
+  start: start.bat
+  stop: stop.bat
+
+logging: config.LogFile.logging.ini
