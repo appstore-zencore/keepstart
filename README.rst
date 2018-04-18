@@ -67,7 +67,6 @@ Example Config
 Config to use logging.config
 ----------------------------
 
-set logging to the config file in config.yaml, and create logging.conf file.
 
 1. config.yaml
 
@@ -87,6 +86,8 @@ set logging to the config file in config.yaml, and create logging.conf file.
             force-test-cycle: 60
 
         logging: logging.conf
+
+    set logging to the config file in config.yaml, and create logging.conf file.
 
 1. logging.conf
 
@@ -130,6 +131,7 @@ set logging to the config file in config.yaml, and create logging.conf file.
         [formatter_simpleFormatter]
         format=%(asctime)s %(levelname)5s %(message)s
 
+    You must add logger_xxx which xxx is the module to be actived for logging.
 
 Config item description
 -----------------------
