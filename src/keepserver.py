@@ -21,7 +21,7 @@ def findvip(vip, nic=None):
     nics = psutil.net_if_addrs()
     if nic:
         if not nic in nics:
-            logger.error("Nic {} not found in current system.".format(nic))
+            logger.error("Nic {name} not found in current system.".format(name=nic))
             return None
         addrs = nics[nic]
         for addr in addrs:
@@ -41,9 +41,9 @@ def call(command):
         exit_code = os.system(command)
     finally:
         if exit_code == 0:
-            logger.info("Call command: {} SUCCESS.".format(command))
+            logger.info("Call command: {command} SUCCESS.".format(command=command))
         else:
-            logger.warn("Call command: {} FAILED with exit_code = {}.".format(command, exit_code))
+            logger.warn("Call command: {command} FAILED with exit_code = {exit_code}.".format(command=command, exit_code=exit_code))
     return exit_code == 0
 
 
@@ -60,7 +60,7 @@ def is_running(command, current_status, counter, force_test_cycle, force):
     if (not force) and (current_status is not None):
         if counter % force_test_cycle:
             return current_status
-    logger.info("Test is running with command: {}".format(command))
+    logger.info("Test is running with command: {command}".format(command=command))
     # do test
     try:
         exit_code = os.system(command)
@@ -98,7 +98,7 @@ def server(config):
     # catch signal and stop server
     def on_exit(sig, frame):
         stop_flag.set()
-        msg = "Server got signal {}, set stop_flag=True and exiting...".format(sig)
+        msg = "Server got signal {sig}, set stop_flag=True and exiting...".format(sig=sig)
         print(msg, file=os.sys.stderr)
         logger.info(msg)
     try:
@@ -112,14 +112,14 @@ def server(config):
             time.sleep(sleep)
             counter += 1
             if counter % report:
-                logger.debug("Keep-server is running with counter={}.".format(counter))
+                logger.debug("Keep-server is running with counter={counter}.".format(counter=counter))
             is_master = findvip(vip, nic)
             if is_master is None:
-                logger.error("Find vip failed vip={} nic={}.".format(vip, nic))
+                logger.error("Find vip failed vip={vip} nic={nic}.".format(vip=vip, nic=nic))
                 continue
             is_running_flag = is_running(is_running_test_command, is_running_flag, counter, force_test_cycle, force_test_flag)
             if is_running_flag is None:
-                logger.error("Test main program running status failed, test command: {}.".format(is_running_test_command))
+                logger.error("Test main program running status failed, test command: {command}.".format(command=is_running_test_command))
                 continue
             if is_master and not is_running_flag:
                 is_running_flag = True
